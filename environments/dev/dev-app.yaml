@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: dev-environment
+spec:
+  project: default
+  
+  source:
+    repoURL: https://github.com/bHARATHaALETI018/idp-platform-config.git
+    targetRevision: main
+    path: environments/dev/manifests
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+
+  syncPolicy:
+    automated: 
+      prune: true 
+      selfHeal: true 
+    syncOptions:  
+    - CreateNamespace=true
+  
+
+
