@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: hello-app-dev
+  name: app-dev
   namespace: argocd
 spec:
   project: default
@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/bHARATHaALETI018/idp-app-service.git
     targetRevision: main
-    path: apps/hello-app/dev
+    path: overlays/dev
 
   destination:
     server: https://kubernetes.default.svc
