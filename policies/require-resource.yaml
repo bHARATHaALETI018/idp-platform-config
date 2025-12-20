@@ -4,12 +4,19 @@ metadata:
   name: require-resources
 spec:
   validationFailureAction: Enforce
+  background: true
   rules:
     - name: check-resources
       match:
         resources:
           kinds:
             - Pod
+          namespaces:
+            - "*"
+      exclude:
+        resources:
+          namespaces:
+            - monitoring
       validate:
         message: "CPU and memory requests are mandatory."
         pattern:

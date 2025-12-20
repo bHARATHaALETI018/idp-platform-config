@@ -4,12 +4,19 @@ metadata:
   name: require-labels
 spec:
   validationFailureAction: Enforce
+  background: true
   rules:
     - name: require-standard-labels
       match:
         resources:
           kinds:
             - Pod
+          namespaces:
+            - "*"       
+      exclude:
+        resources:
+          namespaces:
+            - monitoring
       validate:
         message: "Missing required labels: app, environment"
         pattern:

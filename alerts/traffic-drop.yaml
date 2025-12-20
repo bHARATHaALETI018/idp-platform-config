@@ -1,0 +1,20 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: traffic-drop
+  namespace: monitoring
+spec:
+  groups:
+    - name: traffic.rules
+      rules:
+        - alert: SuddenTrafficDrop
+          expr: |
+            rate(nginx_ingress_controller_requests[2m])
+            <
+            rate(nginx_ingress_controller_requests[30m]) * 0.5
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Sudden drop in traffic"
+            description: "Ingress traffic dropped significantly compared to baseline."

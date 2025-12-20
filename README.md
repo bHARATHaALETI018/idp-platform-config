@@ -37,3 +37,7 @@ This repository enables:
 - **Platform Team** owns this repo
 - Developers do **not** deploy directly to clusters
 - Access is controlled via Argo CD AppProjects and RBAC
+
+---
+
+This is a sub-repo of the main one: [Internal-Developer-Platform](https://github.com/bHARATHaALETI018/internal-developer-platform.git)

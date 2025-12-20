@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: pod-cpu-saturation
+  namespace: monitoring
+spec:
+  groups:
+    - name: pod.rules
+      rules:
+        - alert: PodCpuSaturation
+          expr: |
+            sum(rate(container_cpu_usage_seconds_total[2m])) by (pod)
+            /
+            sum(container_spec_cpu_quota / container_spec_cpu_period) by (pod)
+            > 0.9
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Pod CPU saturation"
+            description: "Pod is close to CPU limits."
+
